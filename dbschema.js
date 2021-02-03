@@ -19,8 +19,18 @@ let db = {
       website: 'https://user.com',
       location: 'London, UK'
     }
+  ],
+  comments: [
+    {
+      userHandle: 'user',
+      screamId: 'h955ng957euj249m8',
+      body: 'nice text message',
+      createdAt: '2021-02-02T20:07:57.327Z'
+    }
   ]
 }
+
+
 
 const userDetails = {
   // Redux data
