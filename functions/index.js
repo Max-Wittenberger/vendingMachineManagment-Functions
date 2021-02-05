@@ -4,6 +4,10 @@ const app = require('express')();
 
 const FBAuth = require('./util/FBAuth');
 
+const cors =  require('cors');
+
+app.use(cors());
+
 const { getAllScreams, postOneScream, getScream, commentOnScream, likeScream, unlikeScream, deleteScream} = require('./handlers/screams');
 const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
 
@@ -69,6 +73,7 @@ exports.deleteNotificationOnUnLike = functions
         return;
       });
   });
+
 exports.createNotificationOnComment = functions
   .region('europe-west3')
   .firestore.document('comments/{id}')
