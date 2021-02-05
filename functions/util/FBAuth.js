@@ -19,7 +19,7 @@ module.exports  =  (req, res, next) => {
     })
     .then( data =>{
       req.user.handle = data.docs[0].data().handle;
-      req.user.imageUrl = data.docs[0].data().imageUrl;
+      req.user.accessCode = data.docs[0].data().accessCode;
       return next(); // this will follow to the api call 
     })
     .catch(err => {

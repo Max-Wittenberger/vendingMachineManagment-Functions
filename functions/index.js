@@ -9,8 +9,14 @@ const cors =  require('cors');
 app.use(cors());
 
 const { getAllScreams, postOneScream, getScream, commentOnScream, likeScream, unlikeScream, deleteScream} = require('./handlers/screams');
+const { getAllVendingMachines, getVendingMachine, createVendingMachine } = require('./handlers/vendingMachines');
 const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
 
+
+// vending machine routes 
+app.get('/vendingMachines', FBAuth,  getAllVendingMachines );
+app.get('/vendingMachine/:vendingMachineId', getVendingMachine );
+app.post('/vendingMachine', createVendingMachine );
 
 // Scream routs
 app.get('/screams', getAllScreams);
