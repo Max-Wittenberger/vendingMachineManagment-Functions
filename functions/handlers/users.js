@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
       if(!doc.exists){
         return res.status(400).json({ accessCode: "this access code is not valid" });  
       }else{
-        return db.doc(`/users/${newUser.handle}`).get()
+        return db.doc(`/users/${newUser.handle.trim()}`).get()
         .then((doc) => {
           if (doc.exists) {
             return res.status(400).json({ handle: "this handle is already taken" });
