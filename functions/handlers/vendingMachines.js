@@ -14,7 +14,11 @@ exports.getAllVendingMachines = (req, res) => {
           category: doc.data().category,
           hardwareId: doc.data().hardwareId,
           lastUpdated: doc.data().lastUpdated,
-          location: doc.data().location,
+          city: doc.data().city,
+          streetname: doc.data().streetname,
+          streetno: doc.data().streetno,
+          country: doc.data().country,
+          level : doc.data().level,
           shafts: doc.data().shafts
         });
       });
@@ -97,6 +101,7 @@ exports.createVendingMachine = (req, res) => {
     streetname: req.body.streetname,
     streetno: req.body.streetno,
     lastUpdated: 0,
+    level: 0,
     shafts: 0
   };
 
