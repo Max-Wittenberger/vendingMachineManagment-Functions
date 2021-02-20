@@ -54,14 +54,15 @@ exports.getVendingMachine = (req, res) => {
             articleIds.push( shaft.articleId );
           });  
         // hier alle articlenummern returnen, die gesucht werden sollen        
-        console.log(articleIds);
+        if(articleIds.length > 0){
     	  return db.collection("articles").where("articleId" , "in", articleIds).get();
+        }else return res.json(vendingMachineData);
       }).then((data) => {
         data.forEach((doc) => {
           const article = doc.data();
+          console.log(article);
           for(let shaft of vendingMachineData.shafts){
             if(shaft.articleId === article.articleId){
-              console.log("jep");
               shaft.article = article;
             };
           }
@@ -87,11 +88,14 @@ exports.getVendingMachine = (req, res) => {
 //Post a vending machine
 exports.createVendingMachine = (req, res) => {
   const newVendingMachine = {
-    accessCode: req.user.accessCode,
+    // accessCode: req.user.accessCode,
     category: req.body.category,
     createdAt: new Date().toISOString(),
     hardwareId: req.body.hardwareId,
-    location: req.body.location,
+    city: req.body.city,
+    country: req.body.country,
+    streetname: req.body.streetname,
+    streetno: req.body.streetno,
     lastUpdated: 0,
     shafts: 0
   };
