@@ -100,6 +100,8 @@ exports.createVendingMachine = (req, res) => {
     country: req.body.country,
     streetname: req.body.streetname,
     streetno: req.body.streetno,
+    latitude: req.body.latitude ,
+    longitude: req.body.longitude,
     lastUpdated: 0,
     level: 0,
     shafts: 0
