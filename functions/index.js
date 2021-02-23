@@ -10,13 +10,22 @@ app.use(cors());
 
 const { getAllScreams, postOneScream, getScream, commentOnScream, likeScream, unlikeScream, deleteScream} = require('./handlers/screams');
 const { getAllVendingMachines, getVendingMachine, createVendingMachine } = require('./handlers/vendingMachines');
-const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
-
+const { signup, login, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
+const { getArticleData, updateArticle, createArticle } = require('./handlers/article');
+const { uploadImage } = require('./handlers/general');
 
 // vending machine routes 
 app.get('/vendingMachines', FBAuth,  getAllVendingMachines );
 app.get('/vendingMachine/:vendingMachineId', getVendingMachine );
 app.post('/vendingMachine', createVendingMachine );
+
+// article routes
+app.get('/article/:articleId', getArticleData);
+app.post('/article/:articleId', updateArticle);
+app.post('/article', createArticle);
+
+//general
+app.post('/image', uploadImage);
 
 // Scream routs
 app.get('/screams', getAllScreams);
@@ -31,11 +40,11 @@ app.delete('/scream/:screamId', FBAuth, deleteScream);
 
 
 
+
 // users routs
 app.post('/signup', signup);
 app.post('/login', login );
 
-app.post('/user/image', FBAuth, uploadImage);
 app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getAuthenticatedUser)
 

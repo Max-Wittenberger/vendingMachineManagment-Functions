@@ -80,13 +80,6 @@ exports.getVendingMachine = (req, res) => {
 
         
   };
-  
-  const getArticleData = (articleId) => {
-   return db.doc(`articles/${articleId}`).get()
-          .then((doc) => { 
-              return doc.data()
-            }); 
-  }
 
 
 //Post a vending machine

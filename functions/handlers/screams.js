@@ -51,6 +51,7 @@ exports.postOneScream = (req, res) => {
       console.error(err);
     });
 };
+
 // Fetch one scream
 exports.getScream = (req, res) => {
   let screamData = {};
