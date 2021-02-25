@@ -11,7 +11,7 @@ app.use(cors());
 const { getAllScreams, postOneScream, getScream, commentOnScream, likeScream, unlikeScream, deleteScream} = require('./handlers/screams');
 const { getAllVendingMachines, getVendingMachine, createVendingMachine } = require('./handlers/vendingMachines');
 const { signup, login, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
-const { getArticleData, updateArticle, createArticle } = require('./handlers/article');
+const { getArticleData, updateArticle, createArticle, getAllArticles } = require('./handlers/article');
 const { uploadImage } = require('./handlers/general');
 
 // vending machine routes 
@@ -21,6 +21,7 @@ app.post('/vendingMachine', createVendingMachine );
 
 // article routes
 app.get('/article/:articleId', getArticleData);
+app.get('/articles', getAllArticles);
 app.post('/article/:articleId', updateArticle);
 app.post('/article', createArticle);
 

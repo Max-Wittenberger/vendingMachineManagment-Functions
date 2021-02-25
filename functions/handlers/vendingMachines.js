@@ -85,7 +85,7 @@ exports.getVendingMachine = (req, res) => {
 //Post a vending machine
 exports.createVendingMachine = (req, res) => {
   const newVendingMachine = {
-    // accessCode: req.user.accessCode,
+    accessCode: req.user.accessCode,
     category: req.body.category,
     createdAt: new Date().toISOString(),
     hardwareId: req.body.hardwareId,

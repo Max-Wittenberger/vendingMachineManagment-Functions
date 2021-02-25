@@ -1,3 +1,4 @@
+const { user } = require('firebase-functions/lib/providers/auth');
 const { db } = require('../util/admin');
 
 exports.getArticleData = (req, res) => {
@@ -25,10 +26,11 @@ exports.createArticle = (req, res) => {
   }
 
   const newArticle = {
+    accessCode: req.user.accessCode,
     description: req.body.description,
     height: req.body.height,
     price: req.body.price,
-    imageUrl: "TODO",
+    imageUrl: req.body.imageUrl,
   }
 
   db.collection('articles')
@@ -44,7 +46,7 @@ exports.createArticle = (req, res) => {
     });
   }
 
-  exports.updateArticle = (req, res) => {  
+exports.updateArticle = (req, res) => {  
     const updateArticle = {
       description: req.body.description,
       height: req.body.height,
@@ -64,3 +66,27 @@ exports.createArticle = (req, res) => {
         console.error(err);
       });
     }
+
+exports.getAllArticles = (req, res) => {
+  db.collection('articles')
+  .get()
+  .then((data) => {
+    let vendingMachines = [];
+    data.forEach((doc) => {
+      data = doc.data();
+      vendingMachines.push({
+        accessCode: data.accessCode,
+        articleId: doc.id,
+        description: data.description,
+        height: data.height,
+        price: data.price,
+        imageUrl: data.imageUrl,
+      });
+    });
+    res.json(vendingMachines);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).json({ error: err.code });
+  });
+}
