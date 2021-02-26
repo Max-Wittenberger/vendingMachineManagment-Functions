@@ -16,30 +16,17 @@ const { uploadImage } = require('./handlers/general');
 
 // vending machine routes 
 app.get('/vendingMachines', FBAuth,  getAllVendingMachines );
-app.get('/vendingMachine/:vendingMachineId', getVendingMachine );
-app.post('/vendingMachine', createVendingMachine );
+app.get('/vendingMachine/:vendingMachineId', FBAuth, getVendingMachine );
+app.post('/vendingMachine', FBAuth, createVendingMachine );
 
 // article routes
-app.get('/article/:articleId', getArticleData);
-app.get('/articles', getAllArticles);
-app.post('/article/:articleId', updateArticle);
-app.post('/article', createArticle);
+app.get('/article/:articleId', FBAuth, getArticleData);
+app.get('/articles', FBAuth, getAllArticles);
+app.post('/article/:articleId', FBAuth, updateArticle);
+app.post('/article', FBAuth, createArticle);
 
 //general
-app.post('/image', uploadImage);
-
-// Scream routs
-app.get('/screams', getAllScreams);
-app.get('/scream/:screamId', getScream)
-app.get('/scream/:screamId/like', FBAuth, likeScream);
-app.get('/scream/:screamId/unlike', FBAuth, unlikeScream);
-
-app.post('/scream', FBAuth, postOneScream);
-app.post('/scream/:screamId/comment', FBAuth, commentOnScream)
-
-app.delete('/scream/:screamId', FBAuth, deleteScream);
-
-
+app.post('/image', FBAuth, uploadImage);
 
 
 // users routs
