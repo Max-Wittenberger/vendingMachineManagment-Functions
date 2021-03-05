@@ -97,7 +97,7 @@ exports.createVendingMachine = (req, res) => {
     longitude: req.body.longitude,
     lastUpdated: 0,
     level: 0,
-    shafts: 0
+    shafts: []
   };
 
   db.collection('vendingMachines')
@@ -105,6 +105,31 @@ exports.createVendingMachine = (req, res) => {
     .then((doc) => {
       const resVendingMachine = newVendingMachine;
       resVendingMachine.vendingMachineId = doc.id;
+      res.json(resVendingMachine);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: 'something went wrong' });
+      console.error(err);
+    }); 
+};
+
+exports.updateVendingMachine = (req, res) => {
+  const vendingMachine = {
+    category: req.body.category,
+    hardwareId: req.body.hardwareId,
+    city: req.body.city,
+    country: req.body.country,
+    streetname: req.body.streetname,
+    streetno: req.body.streetno,
+    latitude: req.body.latitude ,
+    longitude: req.body.longitude
+  };
+
+  db.doc(`vendingMachines/${req.params.vendingMachineId}`)
+    .update(vendingMachine)
+    .then((doc) => {
+      const resVendingMachine = vendingMachine;
+      resVendingMachine.vendingMachineId = req.params.vendingMachineId;
       res.json(resVendingMachine);
     })
     .catch((err) => {
@@ -150,24 +175,20 @@ exports.addVendingMachineShaft = (req, res) => {
 
 // Delete a vendingMachine
 exports.deleteVendingMachine = (req, res) => {
- /* const document = db.doc(`/screams/${req.params.screamId}`);
-  document
-    .get()
+  const document = db.doc(`vendingMachines/${req.params.vendingMachineId}`);
+  document.get()
     .then((doc) => {
-      if (!doc.exists) {
-        return res.status(404).json({ error: 'Scream not found' });
-      }
-      if (doc.data().userHandle !== req.user.handle) {
-        return res.status(403).json({ error: 'Unauthorized' });
-      } else {
+      if (!doc.exists){
+        return res.status(404).json({ error: 'Vending machine not found' });
+      }else{
         return document.delete();
       }
     })
     .then(() => {
-      res.json({ message: 'Scream deleted successfully' });
+      return res.json({ message: 'Scream deleted successfully' });
     })
     .catch((err) => {
       console.error(err);
       return res.status(500).json({ error: err.code });
-    }); */
+    }); 
 };

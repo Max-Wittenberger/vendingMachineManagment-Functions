@@ -9,15 +9,20 @@ const cors =  require('cors');
 app.use(cors());
 
 const { getAllScreams, postOneScream, getScream, commentOnScream, likeScream, unlikeScream, deleteScream} = require('./handlers/screams');
-const { getAllVendingMachines, getVendingMachine, createVendingMachine } = require('./handlers/vendingMachines');
+const { getAllVendingMachines, getVendingMachine, createVendingMachine, updateVendingMachine, deleteVendingMachine } = require('./handlers/vendingMachines');
 const { signup, login, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
 const { getArticleData, updateArticle, createArticle, getAllArticles } = require('./handlers/article');
+const { createShaft } = require('./handlers/machineShaft');
 const { uploadImage } = require('./handlers/general');
 
 // vending machine routes 
 app.get('/vendingMachines', FBAuth,  getAllVendingMachines );
-app.get('/vendingMachine/:vendingMachineId', FBAuth, getVendingMachine );
-app.post('/vendingMachine', FBAuth, createVendingMachine );
+app.get('/vendingMachine/:vendingMachineId', getVendingMachine );
+app.post('/vendingMachine', FBAuth, createVendingMachine ); 
+app.post('/vendingMachine/:vendingMachineId', FBAuth, updateVendingMachine ); 
+app.delete('/vendingMachine/:vendingMachineId', deleteVendingMachine );
+
+app.post('/shaft', createShaft);
 
 // article routes
 app.get('/article/:articleId', FBAuth, getArticleData);
